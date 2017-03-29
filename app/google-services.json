@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1041636532310",
+    "firebase_url": "https://mydatabase-17fc7.firebaseio.com",
+    "project_id": "mydatabase-17fc7",
+    "storage_bucket": "mydatabase-17fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041636532310:android:136e48df48d4e8d3",
+        "android_client_info": {
+          "package_name": "com.hrawat.mydb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041636532310-e7ks814b54avss56dudjjbn3f6lsjjde.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hrawat.mydb",
+            "certificate_hash": "30baa8af81c38fbedd38efc14b19d85a0f31797d"
+          }
+        },
+        {
+          "client_id": "1041636532310-svr3n3i5ark39erplopsre95qfb9sqbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaIrN1RQa7Gna-aK5V2Anj1imUyP9mti8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041636532310-svr3n3i5ark39erplopsre95qfb9sqbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
