@@ -31,12 +31,7 @@ public class ProductListingActivity2 extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        list = new ArrayList<>();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.hero);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductListAdapter();
-        recyclerView.setAdapter(productAdapter);
+        init();
         showToast("Fetching medicine list");
         showProgress();
         mDatabase.child("Medicine").addValueEventListener(new ValueEventListener() {
@@ -52,6 +47,15 @@ public class ProductListingActivity2 extends BaseActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void init() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        list = new ArrayList<>();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.hero);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        productAdapter = new ProductListAdapter();
+        recyclerView.setAdapter(productAdapter);
     }
 
     private void manipulateData(Map<String, Medicine> map) {

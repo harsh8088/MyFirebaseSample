@@ -1,8 +1,9 @@
 package com.hrawat.mydb.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,24 +13,61 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hrawat.mydb.R;
 import com.hrawat.mydb.model.Medicine;
+import com.hrawat.mydb.utils.RuntimePermissionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements RuntimePermissionUtils.OnPermissionResult,
+        View.OnClickListener {
 
     private DatabaseReference mDatabase;
     private ArrayList<Medicine> medicineList;
+    private RuntimePermissionUtils permissionUtilsFragment;
+    private Button btnCreate;
+    private Button btnShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+        checkRuntimePermission();
+//        readData();
+//        mDatabase.child("Medicine").child("cxpi").child("price").setValue("400");
+    }
+
+    private void init() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         medicineList = new ArrayList<>();
-        readData();
-//        mDatabase.child("Medicine").child("cxpi").child("price").setValue("400");
+        permissionUtilsFragment = (RuntimePermissionUtils) getSupportFragmentManager()
+                .findFragmentByTag(RuntimePermissionUtils.TAG);
+        btnShow = (Button) findViewById(R.id.btn_show);
+        btnShow.setOnClickListener(this);
+        btnCreate = (Button) findViewById(R.id.btn_create);
+        btnCreate.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_create:
+                break;
+            case R.id.btn_show:
+                startActivity(ProductListingActivity2.class);
+                break;
+        }
+    }
+
+    private void checkRuntimePermission() {
+        if (permissionUtilsFragment == null) {
+            permissionUtilsFragment = new RuntimePermissionUtils();
+            permissionUtilsFragment.setCallback(this);
+            getSupportFragmentManager().beginTransaction()
+                    .add(permissionUtilsFragment, RuntimePermissionUtils.TAG)
+                    .commit();
+        }
     }
 
     private void readData() {
@@ -85,5 +123,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mDatabase.onDisconnect();
+    }
+
+    @Override
+    public void onUtilReady() {
+    }
+
+    @Override
+    public void onPermissionGranted() {
+        showToast("Permission Granted");
+    }
+
+    @Override
+    public void onPermissionDenied() {
+        showToast("Permission Denied");
     }
 }
