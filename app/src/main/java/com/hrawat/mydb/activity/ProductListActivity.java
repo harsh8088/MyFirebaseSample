@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hrawat.mydb.R;
 import com.hrawat.mydb.adapter.ProductListAdapter;
@@ -21,9 +19,8 @@ import java.util.Map;
 /**
  * Created by Admin on 26-03-2017.
  */
-public class ProductListingActivity2 extends BaseActivity {
+public class ProductListActivity extends BaseActivity {
 
-    public DatabaseReference mDatabase;
     ArrayList<Medicine> list;
     ProductListAdapter productAdapter;
 
@@ -32,9 +29,8 @@ public class ProductListingActivity2 extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         init();
-        showToast("Fetching medicine list");
         showProgress();
-        mDatabase.child("Medicine").addValueEventListener(new ValueEventListener() {
+        getDatabaseReference().child("Medicine").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 manipulateData((HashMap<String, Medicine>) dataSnapshot.getValue());
@@ -50,7 +46,6 @@ public class ProductListingActivity2 extends BaseActivity {
     }
 
     private void init() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         list = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.hero);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

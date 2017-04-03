@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyFirebaseSample</string>
+    <string name="text_save">Save</string>
+    <string name="text_unit">Unit</string>
+    <string name="text_quantity">Quantity</string>
+    <string name="text_price">Price</string>
+    <string name="text_name">Name</string>
+    <string name="text_manufacturer">Manufacturer</string>
+    <string name="text_show_list">Show List</string>
 </resources>

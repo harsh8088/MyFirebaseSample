@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hrawat.mydb.R;
 import com.hrawat.mydb.model.Medicine;
@@ -22,11 +20,8 @@ import java.util.Map;
 public class MainActivity extends BaseActivity implements RuntimePermissionUtils.OnPermissionResult,
         View.OnClickListener {
 
-    private DatabaseReference mDatabase;
     private ArrayList<Medicine> medicineList;
     private RuntimePermissionUtils permissionUtilsFragment;
-    private Button btnCreate;
-    private Button btnShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +29,15 @@ public class MainActivity extends BaseActivity implements RuntimePermissionUtils
         setContentView(R.layout.activity_main);
         init();
         checkRuntimePermission();
-//        readData();
-//        mDatabase.child("Medicine").child("cxpi").child("price").setValue("400");
     }
 
     private void init() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         medicineList = new ArrayList<>();
         permissionUtilsFragment = (RuntimePermissionUtils) getSupportFragmentManager()
                 .findFragmentByTag(RuntimePermissionUtils.TAG);
-        btnShow = (Button) findViewById(R.id.btn_show);
+        Button btnShow = (Button) findViewById(R.id.btn_show);
         btnShow.setOnClickListener(this);
-        btnCreate = (Button) findViewById(R.id.btn_create);
+        Button btnCreate = (Button) findViewById(R.id.btn_create);
         btnCreate.setOnClickListener(this);
     }
 
@@ -53,9 +45,10 @@ public class MainActivity extends BaseActivity implements RuntimePermissionUtils
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_create:
+                startActivity(SaveMedicineActivity.class);
                 break;
             case R.id.btn_show:
-                startActivity(ProductListingActivity2.class);
+                startActivity(ProductListActivity.class);
                 break;
         }
     }
@@ -71,7 +64,7 @@ public class MainActivity extends BaseActivity implements RuntimePermissionUtils
     }
 
     private void readData() {
-        mDatabase.child("Medicine").addValueEventListener(new ValueEventListener() {
+        getDatabaseReference().child("Medicine").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Medicine> td = (HashMap<String, Medicine>) dataSnapshot.getValue();
@@ -122,7 +115,6 @@ public class MainActivity extends BaseActivity implements RuntimePermissionUtils
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mDatabase.onDisconnect();
     }
 
     @Override

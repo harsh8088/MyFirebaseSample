@@ -12,6 +12,9 @@ public class Medicine {
     private String quantity;
     private String unit;
 
+    public Medicine( ) {
+    }
+
     public Medicine(String name, String url, String manufacturer, String price, String quantity, String unit) {
         this.name = name;
         this.url = url;

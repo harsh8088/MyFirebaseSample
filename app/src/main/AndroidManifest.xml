@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ProductListingActivity2">
+        <activity android:name=".activity.ProductListActivity"
+            android:label="Product List">
+        </activity>
+        <activity android:name=".activity.SaveMedicineActivity"
+            android:label="Save Item">
         </activity>
     </application>
 </manifest>

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hrawat.mydb.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -18,9 +20,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toast toast;
     private ProgressDialog progress;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         super.onCreate(savedInstanceState);
     }
 
@@ -37,11 +41,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mDatabaseReference.onDisconnect();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public DatabaseReference getDatabaseReference() {
+        return mDatabaseReference;
     }
 
     //Start Activity And finish Previous one
@@ -112,4 +121,5 @@ public abstract class BaseActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
 }
